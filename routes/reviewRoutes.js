@@ -1,40 +1,12 @@
 const express = require('express');
-const router = express.Router();
-const Review = require('../models/Review');
-const Project = require('../models/Project');
+const { getAllReviews, getReviewsByProject, deleteReview, getReviews } = require('../controllers/reviewController');
 const { protect } = require('../middleware/authMiddleware');
+const router = express.Router();
 
-// POST: Add review
-router.post('/', protect, async (req, res) => {
-    try {
-        const { projectId, rating, review } = req.body;
-
-        if (!rating || !review) {
-            return res.status(400).json({ message: 'Rating and review are required.' });
-        }
-
-        // If projectId is provided, check if it exists, else set to null
-        let project;
-        if (projectId) {
-            project = await Project.findById(projectId);
-            if (!project) {
-                return res.status(404).json({ message: 'Project not found.' });
-            }
-        }
-
-        const newReview = new Review({
-            projectId: project ? project._id : null, // If no projectId, set to null
-            clientId: req.client._id,
-            rating,
-            review,
-        });
-
-        await newReview.save();
-
-        res.status(201).json({ message: 'Review added successfully.', data: newReview });
-    } catch (error) {
-        res.status(500).json({ message: 'Error adding review.', error: error.message });
-    }
-});
+// Admin Routes
+router.get('/', protect, getAllReviews); // Get all reviews (admin only)
+router.get('/project/:projectId', protect, getReviewsByProject); // Get reviews by project (admin only)
+router.delete('/:id', protect, deleteReview); // Delete a review (admin only)
+router.get('/', getReviews);
 
 module.exports = router;
