@@ -10,11 +10,13 @@ const reviewRoutes = require('./routes/reviewRoutes');
 const publicRoutes = require('./routes/publicRoutes');
 const clientRoutes = require('./routes/clientRoutes');
 const guestRoutes = require('./routes/guestRoutes');
-
+const cors = require('cors');
 const app = express();
 connectDB();
 
+app.use(cors());
 app.use(bodyParser.json());
+
 app.use('/api/admin', adminRoutes);
 app.use('/api/message', messageRoutes);
 app.use('/api/slider', sliderRoutes);
