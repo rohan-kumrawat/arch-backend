@@ -42,12 +42,12 @@ exports.loginAdmin = async (req, res) => {
     try {
         const admin = await Admin.findOne({ username });
         if (!admin) {
-            return res.status(401).json({ error: 'Invalid credentials.' });
+            return res.status(401).json({ error: 'Invalid Username.' });
         }
 
         const isMatch = await bcrypt.compare(password, admin.password);
         if (!isMatch) {
-            return res.status(401).json({ error: 'Invalid credentials.' });
+            return res.status(401).json({ error: 'Invalid Password.' });
         }
 
         const token = generateToken(admin._id);
