@@ -8,6 +8,29 @@ const generateToken = (id) => {
     return jwt.sign({ id, role: 'admin' }, process.env.JWT_SECRET, { expiresIn: '2h' });
 };
 
+// Temporary function to create admin if not exists
+const createAdminIfNotExists = async () => {
+    const username = 'abhishek@admin.com'; // Replace with your desired admin username
+    const password = 'NarmadeHar123'; // Replace with your desired admin password
+
+    try {
+        const existingAdmin = await Admin.findOne({ username });
+        if (!existingAdmin) {
+            const hashedPassword = await bcrypt.hash(password, 10);
+            const newAdmin = new Admin({ username, password: hashedPassword });
+            await newAdmin.save();
+            console.log('Admin created successfully with username:', username);
+        } else {
+            console.log('Admin already exists.');
+        }
+    } catch (err) {
+        console.error('Error creating admin:', err.message);
+    }
+};
+
+// Call the function once when the server starts
+createAdminIfNotExists();
+
 // Admin Login with structured error handling
 exports.loginAdmin = async (req, res) => {
     const { username, password } = req.body;
