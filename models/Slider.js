@@ -9,6 +9,10 @@ const sliderSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    cloudinaryId: { 
+        type: String,
+        required: true 
+    }
 });
 
 module.exports = mongoose.model('Slider', sliderSchema);
