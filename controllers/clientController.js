@@ -6,7 +6,7 @@ const Review = require('../models/Review');
 const Project = require('../models/Project');
 
 // Generate JWT
-const generateToken = (id) => jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+const generateToken = (id) => jwt.sign({ id, role: 'client' }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
 // Client Signup
 exports.signupClient = async (req, res) => {
@@ -36,7 +36,7 @@ exports.loginClient = async (req, res) => {
         const isMatch = await bcrypt.compare(password, client.password);
         if (!isMatch) return res.status(401).json({ error: 'Invalid credentials' });
 
-        res.json({ token: generateToken(client._id), client: { id: client._id, name: client.name } });
+        res.json({ token: generateToken(client._id), client: { id: client._id, name: client.name }, role: 'client' });
     } catch (err) {
         res.status(500).json({ error: 'Server error' });
     }
