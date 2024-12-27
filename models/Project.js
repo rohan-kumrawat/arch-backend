@@ -13,11 +13,11 @@ const projectSchema = new mongoose.Schema({
         {
             imageUrl: {
                 type: String,
-                required: false,
+                required: true,
             },
             publicId: {
                 type: String,
-                required: false, // Cloudinary public_id for deletion
+                required: true, // Cloudinary public_id for deletion
             },
         }
     ],

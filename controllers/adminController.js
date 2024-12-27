@@ -44,7 +44,7 @@ exports.addProject = async (req, res) => {
  try {   
     const { title, description, clientName, location, date, features, tags } = req.body;
 
-    if (!title || !description /*|| !req.files || req.files.length === 0*/ || !clientName || !location || !date || !features || !tags) {
+    if (!title || !description || !req.files || req.files.length === 0 || !clientName || !location || !date || !features || !tags) {
         return res.status(400).json({ error: 'All fields are required.' });
     }
 

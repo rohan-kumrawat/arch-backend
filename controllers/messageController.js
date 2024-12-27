@@ -1,4 +1,3 @@
-// controllers/messageController.js
 const Message = require('../models/Message');
 
 // Submit a message
