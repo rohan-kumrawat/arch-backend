@@ -1,7 +1,7 @@
 const express = require('express');
 const { loginAdmin, addProject, getAllProjects, deleteProject, getAdminProject, updateProject } = require('../controllers/adminController');
 const { protect } = require('../middleware/authMiddleware');
-const upload = require('../utils/multer');
+const upload = require('../config/multerConfig');
 const router = express.Router();
 
 router.post('/login', loginAdmin);

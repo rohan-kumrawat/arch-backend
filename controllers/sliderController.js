@@ -4,10 +4,9 @@ const Slider = require('../models/Slider');
 // Upload a new slider image
 exports.uploadSliderImage = async (req, res) => {
     try {
-        // Image details after uploading to Cloudinary
-        const { path, filename } = req.file;
+        const { path, filename } = req.file; // Multer provides file details
 
-        // Save image URL and public_id in MongoDB
+        // Save image details in MongoDB
         const newSlider = new Slider({
             imageUrl: path, // Cloudinary URL
             publicId: filename, // Cloudinary public_id
@@ -50,4 +49,3 @@ exports.deleteSliderImage = async (req, res) => {
         res.status(500).json({ error: 'Error deleting slider image.', details: err.message });
     }
 };
-

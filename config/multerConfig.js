@@ -5,8 +5,8 @@ const cloudinary = require('./cloudinaryConfig');
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
-        folder: 'arch-images', // Change this to a folder name in your Cloudinary account
-        allowed_formats: ['jpg', 'png', 'jpeg'], // Specify allowed image formats
+        folder: 'arch-images', // Cloudinary folder name
+        allowed_formats: ['jpg', 'png', 'jpeg'], // Allowed file types
     },
 });
 
