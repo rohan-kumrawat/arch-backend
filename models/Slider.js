@@ -1,18 +1,22 @@
+// /models/sliderModel.js
 const mongoose = require('mongoose');
 
+// Slider schema
 const sliderSchema = new mongoose.Schema({
-    imageUrl: {
-        type: String,
-        required: true,
-    },
-    publicId: {
-        type: String,
-        required: true, // Cloudinary public_id for deletion
-    },
-    uploadedAt: {
-        type: Date,
-        default: Date.now,
-    },
+  imageUrl: {
+    type: String,
+    required: true
+  },
+  caption: {
+    type: String,
+    required: true
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 });
 
-module.exports = mongoose.model('Slider', sliderSchema);
+const Slider = mongoose.model('Slider', sliderSchema);
+
+module.exports = Slider;
